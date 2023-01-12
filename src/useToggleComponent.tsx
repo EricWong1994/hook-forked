@@ -4,15 +4,15 @@ import React, {
   FunctionComponent,
   useEffect,
   DependencyList,
-  FC
-} from "react";
+  FC,
+} from 'react'
 
 export type ToggleComponentReturnType<Props> = {
   showComponent: (props: Props) => void;
   hideComponent: () => void;
   isShow: boolean;
   Component: FC;
-};
+}
 /**
  * @description 控制组件是否show，和常规的在组件里声明一个isShow状态相比，这个hooks可以将一个jsx(React.Element)
  * 包装成一个组件，同时可以通过showComponent方法传递props进来。
@@ -23,32 +23,32 @@ export function useToggleComponent<Props = any>(
   Component: FunctionComponent<Props>,
   dependency: DependencyList = []
 ): ToggleComponentReturnType<Props> {
-  const [show, setShow] = useState<boolean>(false);
-  const [ClonedComponent, setClonedComponent] = useState<
-    React.FunctionComponent
-  >(() => () => null);
-  const cachedPropsRef = useRef<Props>();
+  const [show, setShow] = useState<boolean>(false)
+  const [ClonedComponent, setClonedComponent] =
+    useState<React.FunctionComponent>(() => () => null)
+  const cachedPropsRef = useRef<Props>()
   const showComponent = (props: Props) => {
-    setShow(true);
-    cachedPropsRef.current = props;
-    setClonedComponent(() => () => <Component {...props} />);
-  };
+    setShow(true)
+    cachedPropsRef.current = props
+    setClonedComponent(() => () => <Component {...props} />)
+  }
   const hideComponent = () => {
-    setShow(false);
-    setClonedComponent(() => () => null);
-  };
+    setShow(false)
+    setClonedComponent(() => () => null)
+  }
   useEffect(() => {
     if (show) {
       setClonedComponent(() => () => (
-        <Component {...cachedPropsRef.current!} />
-      ));
+        // TODO
+        // <Component {...cachedPropsRef.current!} />
+        <Component {...cachedPropsRef.current} />
+      ))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependency);
+  }, dependency)
   return {
     showComponent,
     hideComponent,
     isShow: show,
-    Component: ClonedComponent
-  };
+    Component: ClonedComponent,
+  }
 }

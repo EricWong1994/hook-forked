@@ -1,7 +1,8 @@
 import { Button, Input, Select, Form, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
-import { useToggleModal } from "./useToggleModal";
+// import { useToggleModal } from "./useToggleModal";
+import useToggleModal from "./useToggleModal";
 import "antd/dist/antd.css";
 type ListItem = {
   id: number;

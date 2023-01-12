@@ -5,7 +5,7 @@ import { ButtonProps } from "antd/es/button";
 import { FormProps } from "antd/es/form";
 import { Form } from "antd";
 
-export const useToggleModal = <Props, FormValue = any>(
+const useToggleModal = <Props, FormValue = any>(
   Component: FunctionComponent<Props>,
   dependency: DependencyList = []
 ) => {
@@ -33,3 +33,5 @@ export const useToggleModal = <Props, FormValue = any>(
     modalProps
   };
 };
+
+export default useToggleModal
